@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,20 +17,41 @@
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
-            <a href="#home" class="logo">
+            <a href="index.html" class="logo">
                 <span class="logo-text">SM</span>
             </a>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#work">Work</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact" class="nav-link-cta">Contact</a></li>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link" data-en="Home" data-sk="Home">Home</a></li>
+                <li><a href="#services" data-en="Services" data-sk="Služby">Služby</a></li>
+                <li><a href="#work" data-en="Work" data-sk="Práce">Práce</a></li>
+                <li><a href="#about" data-en="About" data-sk="O mne">O mne</a></li>
+                <li><a href="#contact" class="nav-link-cta" data-en="Contact" data-sk="Kontakt">Kontakt</a></li>
             </ul>
-            <button class="mobile-toggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-            </button>
+            <div class="nav-controls">
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+                <button id="langToggle" class="lang-toggle" aria-label="Toggle language">
+                    <span class="lang-text">SK</span>
+                </button>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -42,30 +63,32 @@
         <div class="hero-content">
             <div class="hero-badge" data-aos="fade-up">
                 <span class="status-dot"></span>
-                Available for work
+                <span data-en="Available for work" data-sk="Dostupný na prácu">Dostupný na prácu</span>
             </div>
             <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">
-                <span class="title-line">Creative</span>
-                <span class="title-line">Developer</span>
+                <span class="title-line" data-en="Creative" data-sk="Kreatívny">Kreatívny</span>
+                <span class="title-line" data-en="Developer" data-sk="Vývojár">Vývojár</span>
             </h1>
-            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">
-                Crafting modern digital design — Web Development, Digital Graphics & 3D Modeling
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200"
+               data-en="Crafting modern digital design — Web Development, Digital Graphics & 3D Modeling"
+               data-sk="Tvorím moderný digitálny dizajn — web development, digitálnu grafiku a 3D modelovanie">
+                Tvorím moderný digitálny dizajn — web development, digitálnu grafiku a 3D modelovanie
             </p>
             <div class="hero-cta" data-aos="fade-up" data-aos-delay="300">
                 <a href="#contact" class="btn btn-primary">
-                    <span>Start a project</span>
+                    <span data-en="Start a project" data-sk="Začať projekt">Začať projekt</span>
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                     </svg>
                 </a>
                 <a href="#work" class="btn btn-secondary">
-                    <span>View work</span>
+                    <span data-en="View work" data-sk="Pozrieť práce">Pozrieť práce</span>
                 </a>
             </div>
         </div>
         <div class="scroll-indicator">
             <div class="scroll-line"></div>
-            <span>Scroll</span>
+            <span data-en="Scroll" data-sk="Scroll">Scroll</span>
         </div>
     </section>
 
@@ -73,26 +96,35 @@
     <section class="section services" id="services">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Services</span>
-                <h2 class="section-title">What I offer</h2>
+                <span class="section-tag" data-en="SERVICES" data-sk="SLUŽBY">SLUŽBY</span>
+                <h2 class="section-title" data-en="What I offer" data-sk="Čo ponúkam">Čo ponúkam</h2>
             </div>
             <div class="services-grid">
                 <div class="service-item" data-aos="fade-up">
                     <div class="service-number">01</div>
-                    <h3>Web Development</h3>
-                    <p>Modern, responsive websites built with clean design, solid structure, and best development practices.</p>
+                    <h3 data-en="Web Development" data-sk="Web Development">Web Development</h3>
+                    <p data-en="Modern, responsive websites built with clean structure and contemporary design."
+                       data-sk="Moderné, responzívne webové stránky s čistou štruktúrou a súčasným dizajnom.">
+                        Moderné, responzívne webové stránky s čistou štruktúrou a súčasným dizajnom.
+                    </p>
                     <div class="service-line"></div>
                 </div>
                 <div class="service-item" data-aos="fade-up" data-aos-delay="100">
                     <div class="service-number">02</div>
-                    <h3>Digital Graphics</h3>
-                    <p>Professional digital graphic design crafted with creative vision and precise execution — turning ideas into bold, memorable visuals.</p>
+                    <h3 data-en="Digital Graphics" data-sk="Digitálna Grafika">Digitálna Grafika</h3>
+                    <p data-en="Professional digital graphic design that turns ideas into bold, memorable visuals."
+                       data-sk="Profesionálna digitálna grafika, ktorá premieňa nápady na výrazné a zapamätateľné vizuály.">
+                        Profesionálna digitálna grafika, ktorá premieňa nápady na výrazné a zapamätateľné vizuály.
+                    </p>
                     <div class="service-line"></div>
                 </div>
                 <div class="service-item" data-aos="fade-up" data-aos-delay="200">
                     <div class="service-number">03</div>
-                    <h3>3D Modeling</h3>
-                    <p>High-quality 3D models and visualizations that add depth, realism, and character to every project.</p>
+                    <h3 data-en="3D Modeling" data-sk="3D Modelovanie">3D Modelovanie</h3>
+                    <p data-en="High-quality 3D models and visualizations that bring concepts to life."
+                       data-sk="Vysokokvalitné 3D modely a vizualizácie, ktoré oživujú koncepty.">
+                        Vysokokvalitné 3D modely a vizualizácie, ktoré oživujú koncepty.
+                    </p>
                     <div class="service-line"></div>
                 </div>
             </div>
@@ -103,14 +135,14 @@
     <section class="section work" id="work">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Portfolio</span>
-                <h2 class="section-title">Selected work</h2>
+                <span class="section-tag" data-en="PORTFOLIO" data-sk="PORTFÓLIO">PORTFÓLIO</span>
+                <h2 class="section-title" data-en="Selected work" data-sk="Vybrané práce">Vybrané práce</h2>
             </div>
             <div class="work-grid">
                 <article class="work-item" data-aos="fade-up">
                     <div class="work-image">
                         <div class="work-overlay">
-                            <a href="#" class="work-link">View project →</a>
+                            <a href="projects-web.html" class="work-link" data-en="View project →" data-sk="Zobraziť projekt →">Zobraziť projekt →</a>
                         </div>
                     </div>
                     <div class="work-info">
@@ -118,8 +150,10 @@
                             <span class="work-category">Web Development</span>
                             <span class="work-year">2024</span>
                         </div>
-                        <h3 class="work-title">Modern Web Solutions</h3>
-                        <p class="work-description">Responsive websites with clean design and seamless user experience.</p>
+                        <h3 class="work-title" data-en="Modern Web Solutions" data-sk="Moderné Web Riešenia">Moderné Web Riešenia</h3>
+                        <p class="work-description" data-en="Responsive websites with clean design and seamless user experience" data-sk="Responzívne webové stránky s čistým dizajnom a plynulou používateľskou skúsenosťou">
+                            Responzívne webové stránky s čistým dizajnom a plynulou používateľskou skúsenosťou
+                        </p>
                         <div class="work-tags">
                             <span>HTML</span>
                             <span>CSS</span>
@@ -127,41 +161,44 @@
                         </div>
                     </div>
                 </article>
-
                 <article class="work-item" data-aos="fade-up" data-aos-delay="100">
                     <div class="work-image work-image-2">
                         <div class="work-overlay">
-                            <a href="#" class="work-link">View project →</a>
+                            <a href="projects-photo.html" class="work-link" data-en="View project →" data-sk="Zobraziť projekt →">Zobraziť projekt →</a>
                         </div>
                     </div>
                     <div class="work-info">
                         <div class="work-meta">
-                            <span class="work-category">Digital Graphics</span>
+                            <span class="work-category" data-en="Digital Graphics" data-sk="Digitálna Grafika">Digitálna Grafika</span>
                             <span class="work-year">2024</span>
                         </div>
-                        <h3 class="work-title">Visual Compositions</h3>
-                        <p class="work-description">Creative compositions designed with visual clarity and strong artistic direction.</p>
+                        <h3 class="work-title" data-en="Visual Compositions" data-sk="Vizuálne Kompozície">Vizuálne Kompozície</h3>
+                        <p class="work-description" data-en="Creative digital compositions with strong visual direction"
+                           data-sk="Kreatívne digitálne kompozície so silným vizuálnym smerovaním">
+                            Kreatívne digitálne kompozície so silným vizuálnym smerovaním
+                        </p>
                         <div class="work-tags">
                             <span>Affinity</span>
-                            <span>Color Grading</span>
+                            <span>Digital Design</span>
                             <span>Retouching</span>
                         </div>
                     </div>
                 </article>
-
                 <article class="work-item" data-aos="fade-up" data-aos-delay="200">
                     <div class="work-image work-image-3">
                         <div class="work-overlay">
-                            <a href="#" class="work-link">View project →</a>
+                            <a href="projects-3d.html" class="work-link" data-en="View project →" data-sk="Zobraziť projekt →">Zobraziť projekt →</a>
                         </div>
                     </div>
                     <div class="work-info">
                         <div class="work-meta">
-                            <span class="work-category">3D Design</span>
+                            <span class="work-category" data-en="3D Modeling" data-sk="3D Modelovanie">3D Modelovanie</span>
                             <span class="work-year">2024</span>
                         </div>
-                        <h3 class="work-title">3D Visualizations</h3>
-                        <p class="work-description">High-quality 3D models and realistic renders.</p>
+                        <h3 class="work-title" data-en="3D Visualizations" data-sk="3D Vizualizácie">3D Vizualizácie</h3>
+                        <p class="work-description" data-en="High-quality 3D models and realistic renders" data-sk="Vysokokvalitné 3D modely a realistické rendery">
+                            Vysokokvalitné 3D modely a realistické rendery
+                        </p>
                         <div class="work-tags">
                             <span>Blender</span>
                             <span>3D Modeling</span>
@@ -169,7 +206,6 @@
                         </div>
                     </div>
                 </article>
-
             </div>
         </div>
     </section>
@@ -179,14 +215,19 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-text" data-aos="fade-up">
-                    <span class="section-tag">About</span>
-                    <h2 class="section-title">Turning ideas into reality</h2>
-                    <p>I'm Samuel Michalik, a multimedia designer focused on creating modern digital experiences through web development, digital graphics, and 3D modeling. I enjoy building visuals and interfaces that feel clean, intentional, and functional.</p>
-                    <p>My approach combines technical precision with creative direction — every detail is there to support both form and function.</p>
+                    <span class="section-tag" data-en="ABOUT" data-sk="O MNE">O MNE</span>
+                    <h2 class="section-title" data-en="Turning ideas into reality" data-sk="Premieňam nápady na realitu">Premieňam nápady na realitu</h2>
+                    <p data-en="I'm Samuel Michalik, a multimedia designer focused on creating modern digital experiences through web development, digital graphics, and 3D modeling. I bring a clean and functional approach to every project."
+                       data-sk="Som Samuel Michalik, multimediálny dizajnér zameraný na tvorbu moderných digitálnych zážitkov pomocou web developmentu, digitálnej grafiky a 3D modelovania. Ku každému projektu pristupujem čisto a funkčne.">
+                        Som Samuel Michalik, multimediálny dizajnér zameraný na tvorbu moderných digitálnych zážitkov pomocou web developmentu, digitálnej grafiky a 3D modelovania. Ku každému projektu pristupujem čisto a funkčne.
+                    </p>
+                    <p data-en="My approach combines technical precision with creative vision, ensuring that every detail supports both form and function."
+                       data-sk="Môj prístup kombinuje technickú precíznosť s kreatívnou víziou, aby každý detail podporoval formu aj funkciu.">
+                        Môj prístup kombinuje technickú precíznosť s kreatívnou víziou, aby každý detail podporoval formu aj funkciu.
+                    </p>
                 </div>
-
                 <div class="about-skills" data-aos="fade-up" data-aos-delay="100">
-                    <h3>Expertise</h3>
+                    <h3 data-en="Expertise" data-sk="Odbornosť">Odbornosť</h3>
                     <div class="skills-grid">
                         <div class="skill-item">
                             <div class="skill-icon">→</div>
@@ -206,7 +247,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -216,38 +256,39 @@
         <div class="container">
             <div class="contact-content">
                 <div class="contact-text" data-aos="fade-up">
-                    <span class="section-tag">Contact</span>
-                    <h2 class="section-title">Let's create something amazing</h2>
-                    <p>Have a project in mind? I'd love to hear about it. Send me a message and let's bring your vision to life.</p>
+                    <span class="section-tag" data-en="CONTACT" data-sk="KONTAKT">KONTAKT</span>
+                    <h2 class="section-title" data-en="Let's create something amazing" data-sk="Vytvorme niečo úžasné">Vytvorme niečo úžasné</h2>
+                    <p data-en="Have a project in mind? I'd love to hear about it. Send me a message and let's bring your vision to life."
+                       data-sk="Máte nejaký projekt na mysli? Rád by som sa o ňom dozvedel viac. Pošlite mi správu a oživme vašu víziu.">
+                        Máte nejaký projekt na mysli? Rád by som sa o ňom dozvedel viac. Pošlite mi správu a oživme vašu víziu.
+                    </p>
                 </div>
-
                 <form class="contact-form" id="contactForm" data-aos="fade-up" data-aos-delay="100">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="name">Name</label>
+                            <label for="name" data-en="NAME" data-sk="MENO">MENO</label>
                             <input type="text" id="name" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email</label>
+                            <label for="email" data-en="EMAIL" data-sk="EMAIL">EMAIL</label>
                             <input type="email" id="email" name="email" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="subject">Subject</label>
+                        <label for="subject" data-en="SUBJECT" data-sk="PREDMET">PREDMET</label>
                         <input type="text" id="subject" name="subject" required>
                     </div>
                     <div class="form-group">
-                        <label for="message">Message</label>
+                        <label for="message" data-en="MESSAGE" data-sk="SPRÁVA">SPRÁVA</label>
                         <textarea id="message" name="message" rows="6" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary btn-full">
-                        <span>Send message</span>
+                        <span data-en="Send message" data-sk="Odoslať správu">Odoslať správu</span>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                             <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </button>
                 </form>
-
             </div>
         </div>
     </section>
@@ -257,7 +298,9 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">SM</div>
-                <p>© 2024 Samuel Michalik. All rights reserved.</p>
+                <p data-en="© 2024 Samuel Michalik. All rights reserved." data-sk="© 2024 Samuel Michalik. Všetky práva vyhradené.">
+                    © 2024 Samuel Michalik. Všetky práva vyhradené.
+                </p>
             </div>
         </div>
     </footer>

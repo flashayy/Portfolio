@@ -11,36 +11,133 @@ document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
     
-    cursorDot.style.left = `${e.clientX}px`;
-    cursorDot.style.top = `${e.clientY}px`;
+    if (cursorDot) {
+        cursorDot.style.left = `${e.clientX}px`;
+        cursorDot.style.top = `${e.clientY}px`;
+    }
 });
 
 function animateOutline() {
     outlineX += (mouseX - outlineX) * 0.15;
     outlineY += (mouseY - outlineY) * 0.15;
     
-    cursorOutline.style.left = `${outlineX}px`;
-    cursorOutline.style.top = `${outlineY}px`;
+    if (cursorOutline) {
+        cursorOutline.style.left = `${outlineX}px`;
+        cursorOutline.style.top = `${outlineY}px`;
+    }
     
     requestAnimationFrame(animateOutline);
 }
 
-animateOutline();
+if (cursorOutline) {
+    animateOutline();
+}
 
 // Cursor hover effect on interactive elements
 const interactiveElements = document.querySelectorAll('a, button, .work-image');
 
 interactiveElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
-        cursorOutline.style.width = '50px';
-        cursorOutline.style.height = '50px';
+        if (cursorOutline) {
+            cursorOutline.style.width = '50px';
+            cursorOutline.style.height = '50px';
+        }
     });
     
     el.addEventListener('mouseleave', () => {
-        cursorOutline.style.width = '30px';
-        cursorOutline.style.height = '30px';
+        if (cursorOutline) {
+            cursorOutline.style.width = '30px';
+            cursorOutline.style.height = '30px';
+        }
     });
 });
+
+// ===== MOBILE MENU TOGGLE =====
+const mobileToggle = document.getElementById('mobileToggle');
+const navMenu = document.getElementById('navMenu');
+
+if (mobileToggle && navMenu) {
+    mobileToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        mobileToggle.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            mobileToggle.classList.remove('active');
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+            navMenu.classList.remove('active');
+            mobileToggle.classList.remove('active');
+        }
+    });
+}
+
+// ===== THEME TOGGLE (DARK/LIGHT MODE) =====
+const themeToggle = document.getElementById('themeToggle');
+const htmlElement = document.documentElement;
+
+// Check for saved theme preference or default to 'light' mode
+const currentTheme = localStorage.getItem('theme') || 'light';
+htmlElement.setAttribute('data-theme', currentTheme);
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = htmlElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        htmlElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+}
+
+// ===== LANGUAGE TOGGLE =====
+const langToggle = document.getElementById('langToggle');
+const langText = document.querySelector('.lang-text');
+
+// Check for saved language preference or default to 'sk'
+let currentLang = localStorage.getItem('language') || 'sk';
+
+// Function to update all translatable elements
+function updateLanguage(lang) {
+    const elements = document.querySelectorAll('[data-en][data-sk]');
+    
+    elements.forEach(element => {
+        const text = lang === 'en' ? element.getAttribute('data-en') : element.getAttribute('data-sk');
+        
+        // Update text content or value based on element type
+        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+            element.placeholder = text;
+        } else {
+            element.textContent = text;
+        }
+    });
+    
+    // Update language button text
+    if (langText) {
+        langText.textContent = lang.toUpperCase();
+    }
+    
+    // Update HTML lang attribute
+    document.documentElement.setAttribute('lang', lang);
+}
+
+// Initialize language
+updateLanguage(currentLang);
+
+if (langToggle) {
+    langToggle.addEventListener('click', () => {
+        currentLang = currentLang === 'sk' ? 'en' : 'sk';
+        updateLanguage(currentLang);
+        localStorage.setItem('language', currentLang);
+    });
+}
 
 // ===== SMOOTH SCROLLING =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -78,23 +175,6 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
-// ===== MOBILE MENU TOGGLE =====
-const mobileToggle = document.querySelector('.mobile-toggle');
-const navMenu = document.querySelector('.nav-menu');
-
-mobileToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-    mobileToggle.classList.toggle('active');
-});
-
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        mobileToggle.classList.remove('active');
-    });
-});
-
 // ===== SCROLL ANIMATIONS =====
 const observerOptions = {
     threshold: 0.1,
@@ -123,50 +203,60 @@ document.querySelectorAll('[data-aos-delay]').forEach(el => {
 // ===== FORM SUBMISSION =====
 const contactForm = document.getElementById('contactForm');
 
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        subject: document.getElementById('subject').value,
-        message: document.getElementById('message').value
-    };
-    
-    // Show success message
-    const submitButton = contactForm.querySelector('button[type="submit"]');
-    const originalText = submitButton.innerHTML;
-    
-    submitButton.innerHTML = '<span>Správa odoslaná! ✓</span>';
-    submitButton.style.background = '#22C55E';
-    
-    // Reset form
-    contactForm.reset();
-    
-    // Reset button after 3 seconds
-    setTimeout(() => {
-        submitButton.innerHTML = originalText;
-        submitButton.style.background = '';
-    }, 3000);
-    
-    // Here you would normally send the data to a server
-    console.log('Form submitted:', formData);
-});
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            subject: document.getElementById('subject').value,
+            message: document.getElementById('message').value
+        };
+        
+        // Show success message
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitButton.innerHTML;
+        
+        const successMessage = currentLang === 'en' 
+            ? '<span>Message sent! ✓</span>' 
+            : '<span>Správa odoslaná! ✓</span>';
+        
+        submitButton.innerHTML = successMessage;
+        submitButton.style.background = '#22C55E';
+        submitButton.style.borderColor = '#22C55E';
+        
+        // Reset form
+        contactForm.reset();
+        
+        // Reset button after 3 seconds
+        setTimeout(() => {
+            submitButton.innerHTML = originalText;
+            submitButton.style.background = '';
+            submitButton.style.borderColor = '';
+        }, 3000);
+        
+        // Here you would normally send the data to a server
+        console.log('Form submitted:', formData);
+    });
+}
 
 // ===== PARALLAX EFFECT ON HERO =====
 const hero = document.querySelector('.hero');
 const heroContent = document.querySelector('.hero-content');
 
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const parallaxSpeed = 0.5;
-    
-    if (scrolled < window.innerHeight) {
-        heroContent.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
-        heroContent.style.opacity = 1 - (scrolled / window.innerHeight);
-    }
-});
+if (hero && heroContent) {
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallaxSpeed = 0.5;
+        
+        if (scrolled < window.innerHeight) {
+            heroContent.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
+            heroContent.style.opacity = 1 - (scrolled / window.innerHeight);
+        }
+    });
+}
 
 // ===== WORK ITEMS HOVER EFFECT =====
 const workItems = document.querySelectorAll('.work-item');
@@ -174,13 +264,15 @@ const workItems = document.querySelectorAll('.work-item');
 workItems.forEach(item => {
     const workImage = item.querySelector('.work-image');
     
-    item.addEventListener('mouseenter', () => {
-        workImage.style.transform = 'scale(1.05)';
-    });
-    
-    item.addEventListener('mouseleave', () => {
-        workImage.style.transform = 'scale(1)';
-    });
+    if (workImage) {
+        item.addEventListener('mouseenter', () => {
+            workImage.style.transform = 'scale(1.05)';
+        });
+        
+        item.addEventListener('mouseleave', () => {
+            workImage.style.transform = 'scale(1)';
+        });
+    }
 });
 
 // ===== ADD TRANSITION TO WORK IMAGES =====
@@ -224,9 +316,11 @@ window.addEventListener('load', () => {
 // ===== KEYBOARD NAVIGATION =====
 document.addEventListener('keydown', (e) => {
     // ESC key closes mobile menu
-    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+    if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
         navMenu.classList.remove('active');
-        mobileToggle.classList.remove('active');
+        if (mobileToggle) {
+            mobileToggle.classList.remove('active');
+        }
     }
 });
 
