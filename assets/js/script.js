@@ -34,7 +34,7 @@ if (cursorOutline) {
 }
 
 // Cursor hover effect on interactive elements
-const interactiveElements = document.querySelectorAll('a, button, .work-image');
+const interactiveElements = document.querySelectorAll('a, button, .work-image, input, textarea');
 
 interactiveElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
@@ -42,12 +42,18 @@ interactiveElements.forEach(el => {
             cursorOutline.style.width = '50px';
             cursorOutline.style.height = '50px';
         }
+        if (cursorDot) {
+            cursorDot.style.transform = 'translate(-50%, -50%) scale(1.5)';
+        }
     });
     
     el.addEventListener('mouseleave', () => {
         if (cursorOutline) {
             cursorOutline.style.width = '30px';
             cursorOutline.style.height = '30px';
+        }
+        if (cursorDot) {
+            cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
         }
     });
 });
@@ -57,9 +63,11 @@ const mobileToggle = document.getElementById('mobileToggle');
 const navMenu = document.getElementById('navMenu');
 
 if (mobileToggle && navMenu) {
-    mobileToggle.addEventListener('click', () => {
+    mobileToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
         navMenu.classList.toggle('active');
         mobileToggle.classList.toggle('active');
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
     });
 
     // Close mobile menu when clicking on a link
@@ -67,14 +75,16 @@ if (mobileToggle && navMenu) {
         link.addEventListener('click', () => {
             navMenu.classList.remove('active');
             mobileToggle.classList.remove('active');
+            document.body.style.overflow = '';
         });
     });
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
-        if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+        if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target) && navMenu.classList.contains('active')) {
             navMenu.classList.remove('active');
             mobileToggle.classList.remove('active');
+            document.body.style.overflow = '';
         }
     });
 }
@@ -142,17 +152,38 @@ if (langToggle) {
 // ===== SMOOTH SCROLLING =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const href = this.getAttribute('href');
+        
+        // Skip empty hash
+        if (href === '#' || href === '#home') {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            return;
+        }
+        
+        const target = document.querySelector(href);
         
         if (target) {
+            e.preventDefault();
             const navHeight = document.querySelector('.nav').offsetHeight;
-            const targetPosition = target.offsetTop - navHeight;
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
             
             window.scrollTo({
                 top: targetPosition,
                 behavior: 'smooth'
             });
+            
+            // Close mobile menu if open
+            if (navMenu && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                if (mobileToggle) {
+                    mobileToggle.classList.remove('active');
+                }
+                document.body.style.overflow = '';
+            }
         }
     });
 });
@@ -321,6 +352,7 @@ document.addEventListener('keydown', (e) => {
         if (mobileToggle) {
             mobileToggle.classList.remove('active');
         }
+        document.body.style.overflow = '';
     }
 });
 
@@ -345,7 +377,21 @@ const debouncedScroll = debounce(() => {
 
 window.addEventListener('scroll', debouncedScroll);
 
+// ===== ENHANCED BUTTON HOVER EFFECTS =====
+document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('mouseenter', function() {
+        this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+    });
+});
+
+// ===== SERVICE ITEMS ANIMATION =====
+document.querySelectorAll('.service-item').forEach(item => {
+    item.addEventListener('mouseenter', function() {
+        this.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+    });
+});
+
 // ===== CONSOLE MESSAGE =====
-console.log('%c👋 Hello there!', 'font-size: 20px; font-weight: bold;');
-console.log('%cLooking at the code? I like your style!', 'font-size: 14px; color: #667eea;');
-console.log('%cFeel free to reach out: samuel@example.com', 'font-size: 12px; color: #737373;');
+console.log('%c👋 Ahoj!', 'font-size: 20px; font-weight: bold;');
+console.log('%cPozeráš sa na kód? Páči sa mi tvoj štýl!', 'font-size: 14px; color: #667eea;');
+console.log('%cNeváhaj ma kontaktovať: samuel@example.com', 'font-size: 12px; color: #737373;');
