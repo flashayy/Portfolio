@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development | Samuel Michalik</title>
+    <link rel="icon" type="image/png" href="assets/images/Vector-Logo-SM.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        .project-hero {
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+
+        .project-hero-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--color-bg-alt);
+            border: 1px solid var(--color-border);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: var(--font-weight-medium);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-md);
+        }
+
+        .project-hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: var(--font-weight-extrabold);
+            letter-spacing: -0.03em;
+            margin-bottom: var(--space-md);
+        }
+
+        .project-hero p {
+            font-size: 1.1rem;
+            color: var(--color-text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+
+        .project-card {
+            background: var(--color-bg-alt);
+            border: 1px solid var(--color-border);
+            transition: var(--transition);
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] .project-card:hover {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-image {
+            width: 100%;
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:nth-child(2) .project-image {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .project-card:nth-child(3) .project-image {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .project-card:nth-child(4) .project-image {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .project-card:nth-child(5) .project-image {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .project-card:nth-child(6) .project-image {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+
+        .project-content {
+            padding: var(--space-md);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-sm);
+            letter-spacing: -0.02em;
+        }
+
+        .project-description {
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            margin-bottom: var(--space-md);
+        }
+
+        .project-tags {
+            display: flex;
+            gap: var(--space-xs);
+            flex-wrap: wrap;
+            margin-bottom: var(--space-md);
+        }
+
+        .project-tags span {
+            padding: 0.4rem 0.8rem;
+            background: var(--color-hover);
+            border: 1px solid var(--color-border);
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            border-radius: 50px;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: var(--font-weight-semibold);
+            transition: var(--transition);
+        }
+
+        .project-link:hover {
+            gap: var(--space-sm);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-md);
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--color-text);
+            gap: var(--space-sm);
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            .project-hero {
+                padding: 120px 0 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img class="logo-img" src="assets/images/logo-svg-black.svg" alt="logo">
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html#home" data-en="Home" data-sk="Home">Home</a></li>
+                <li><a href="index.html#services" data-en="Services" data-sk="Služby">Služby</a></li>
+                <li><a href="index.html#work" data-en="Work" data-sk="Práce">Práce</a></li>
+                <li><a href="index.html#about" data-en="About" data-sk="O mne">O mne</a></li>
+                <li><a href="index.html#contact" class="nav-link-cta" data-en="Contact" data-sk="Kontakt">Kontakt</a></li>
+            </ul>
+            <div class="nav-controls">
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+                <button id="langToggle" class="lang-toggle" aria-label="Toggle language">
+                    <span class="lang-text">SK</span>
+                </button>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <a href="index.html#work" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M16 10H4M4 10L10 16M4 10L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span data-en="Back to work" data-sk="Späť na práce">Späť na práce</span>
+            </a>
+            <span class="project-hero-tag">Web Development</span>
+            <h1 data-en="Modern Web Solutions" data-sk="Moderné Web Riešenia">Moderné Web Riešenia</h1>
+            <p data-en="Explore my web development projects featuring responsive design, clean code, and modern user experiences."
+               data-sk="Preskúmajte moje web development projekty s responzívnym dizajnom, čistým kódom a modernými používateľskými skúsenosťami.">
+                Preskúmajte moje web development projekty s responzívnym dizajnom, čistým kódom a modernými používateľskými skúsenosťami.
+            </p>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="section">
+        <div class="container">
+            <div class="projects-grid">
+                <article class="project-card" data-aos="fade-up">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3 class="project-title" data-en="Portfolio Website" data-sk="Portfólio Webstránka">Portfólio Webstránka</h3>
+                        <p class="project-description" data-en="Modern portfolio website with smooth animations and responsive design"
+                           data-sk="Moderná portfólio webstránka s plynulými animáciami a responzívnym dizajnom">
+                            Moderná portfólio webstránka s plynulými animáciami a responzívnym dizajnom
+                        </p>
+                        <div class="project-tags">
+                            <span>HTML5</span>
+                            <span>CSS3</span>
+                            <span>JavaScript</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            <span data-en="View details" data-sk="Zobraziť detaily">Zobraziť detaily</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3 class="project-title" data-en="E-commerce Platform" data-sk="E-commerce Platforma">E-commerce Platforma</h3>
+                        <p class="project-description" data-en="Full-featured online store with shopping cart and payment integration"
+                           data-sk="Plnohodnotný online obchod s nákupným košíkom a platobnou integráciou">
+                            Plnohodnotný online obchod s nákupným košíkom a platobnou integráciou
+                        </p>
+                        <div class="project-tags">
+                            <span>React</span>
+                            <span>Node.js</span>
+                            <span>MongoDB</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            <span data-en="View details" data-sk="Zobraziť detaily">Zobraziť detaily</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3 class="project-title" data-en="Business Landing Page" data-sk="Firemná Landing Page">Firemná Landing Page</h3>
+                        <p class="project-description" data-en="High-converting landing page with modern design and clear call-to-actions"
+                           data-sk="Vysoko konvertujúca landing page s moderným dizajnom a jasnými výzvami k akcii">
+                            Vysoko konvertujúca landing page s moderným dizajnom a jasnými výzvami k akcii
+                        </p>
+                        <div class="project-tags">
+                            <span>HTML</span>
+                            <span>Tailwind</span>
+                            <span>Alpine.js</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            <span data-en="View details" data-sk="Zobraziť detaily">Zobraziť detaily</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card" data-aos="fade-up">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3 class="project-title" data-en="Restaurant Website" data-sk="Reštauračná Webstránka">Reštauračná Webstránka</h3>
+                        <p class="project-description" data-en="Interactive restaurant website with online menu and reservation system"
+                           data-sk="Interaktívna reštauračná webstránka s online menu a rezervačným systémom">
+                            Interaktívna reštauračná webstránka s online menu a rezervačným systémom
+                        </p>
+                        <div class="project-tags">
+                            <span>Vue.js</span>
+                            <span>Firebase</span>
+                            <span>SCSS</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            <span data-en="View details" data-sk="Zobraziť detaily">Zobraziť detaily</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3 class="project-title" data-en="Agency Dashboard" data-sk="Agentúrny Dashboard">Agentúrny Dashboard</h3>
+                        <p class="project-description" data-en="Comprehensive dashboard for managing projects and client communications"
+                           data-sk="Komplexný dashboard pre správu projektov a komunikáciu s klientmi">
+                            Komplexný dashboard pre správu projektov a komunikáciu s klientmi
+                        </p>
+                        <div class="project-tags">
+                            <span>React</span>
+                            <span>TypeScript</span>
+                            <span>Chart.js</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            <span data-en="View details" data-sk="Zobraziť detaily">Zobraziť detaily</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3 class="project-title" data-en="Fitness App" data-sk="Fitness Aplikácia">Fitness Aplikácia</h3>
+                        <p class="project-description" data-en="Progressive web app for workout tracking and fitness goals"
+                           data-sk="Progresívna webová aplikácia pre sledovanie tréningov a fitness cieľov">
+                            Progresívna webová aplikácia pre sledovanie tréningov a fitness cieľov
+                        </p>
+                        <div class="project-tags">
+                            <span>Next.js</span>
+                            <span>PWA</span>
+                            <span>Supabase</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            <span data-en="View details" data-sk="Zobraziť detaily">Zobraziť detaily</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img class="logo-img" src="assets/images/logo-svg-black.svg" alt="Logo">
+                </div>
+                <p data-en="© 2024 Samuel Michalik. All rights reserved." data-sk="© 2024 Samuel Michalik. Všetky práva vyhradené.">
+                    © 2024 Samuel Michalik. Všetky práva vyhradené.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Modeling | Samuel Michalik</title>
+    <link rel="icon" type="image/png" href="assets/images/Vector-Logo-SM.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        .project-hero {
+            padding: 160px 0 100px;
+            text-align: center;
+            position: relative;
+        }
+
+        .project-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--color-border);
+        }
+
+        .project-hero-tag {
+            display: inline-block;
+            padding: 0.6rem 1.25rem;
+            background: transparent;
+            border: 1px solid var(--color-border);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-lg);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .project-hero h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: var(--font-weight-extrabold);
+            letter-spacing: -0.04em;
+            margin-bottom: var(--space-lg);
+            line-height: 1;
+        }
+
+        .project-hero p {
+            font-size: 1.15rem;
+            color: var(--color-text-secondary);
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.7;
+            font-weight: var(--font-weight-regular);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+
+        .project-card {
+            background: var(--color-bg-alt);
+            border: 1px solid var(--color-border);
+            transition: var(--transition);
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] .project-card:hover {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-image {
+            width: 100%;
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:nth-child(2) .project-image {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .project-card:nth-child(3) .project-image {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .project-card:nth-child(4) .project-image {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+
+        .project-card:nth-child(5) .project-image {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .project-card:nth-child(6) .project-image {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .project-card:nth-child(7) .project-image {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .project-content {
+            padding: var(--space-md);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-sm);
+            letter-spacing: -0.02em;
+        }
+
+        .project-description {
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            margin-bottom: var(--space-md);
+        }
+
+        .project-tags {
+            display: flex;
+            gap: var(--space-xs);
+            flex-wrap: wrap;
+            margin-bottom: var(--space-md);
+        }
+
+        .project-tags span {
+            padding: 0.4rem 0.8rem;
+            background: var(--color-hover);
+            border: 1px solid var(--color-border);
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            border-radius: 50px;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: var(--font-weight-semibold);
+            transition: var(--transition);
+        }
+
+        .project-link:hover {
+            gap: var(--space-sm);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-xl);
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            color: var(--color-text);
+            transform: translateX(-3px);
+        }
+
+        .back-link svg {
+            transition: var(--transition);
+        }
+
+        .back-link:hover svg {
+            transform: translateX(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            .project-hero {
+                padding: 130px 0 70px;
+            }
+
+            .project-hero h1 {
+                font-size: clamp(2.5rem, 10vw, 3.5rem);
+            }
+
+            .project-hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img class="logo-img" src="assets/images/logo-svg-black.svg" alt="logo">
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html#home" data-en="Home" data-sk="Home">Home</a></li>
+                <li><a href="index.html#services" data-en="Services" data-sk="Služby">Služby</a></li>
+                <li><a href="index.html#work" data-en="Work" data-sk="Práce">Práce</a></li>
+                <li><a href="index.html#about" data-en="About" data-sk="O mne">O mne</a></li>
+                <li><a href="index.html#contact" class="nav-link-cta" data-en="Contact" data-sk="Kontakt">Kontakt</a></li>
+            </ul>
+            <div class="nav-controls">
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+                <button id="langToggle" class="lang-toggle" aria-label="Toggle language">
+                    <span class="lang-text">SK</span>
+                </button>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <a href="index.html#work" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M16 10H4M4 10L10 16M4 10L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span data-en="Back to work" data-sk="Späť na práce">Späť na práce</span>
+            </a>
+            <span class="project-hero-tag" data-en="3D Modeling" data-sk="3D Modelovanie">3D Modelovanie</span>
+            <h1 data-en="3D Visualizations" data-sk="3D Vizualizácie">3D Vizualizácie</h1>
+            <p data-en="Explore high-quality 3D models and realistic renders that transform concepts into stunning visual reality."
+               data-sk="Preskúmajte vysokokvalitné 3D modely a realistické rendery, ktoré premieňajú koncepty na ohromujúcu vizuálnu realitu.">
+                Preskúmajte vysokokvalitné 3D modely a realistické rendery, ktoré premieňajú koncepty na ohromujúcu vizuálnu realitu.
+            </p>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="section">
+        <div class="container">
+            <div class="projects-grid">
+                <article class="project-card" data-aos="fade-up">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3 class="project-title" data-en="Product Visualization" data-sk="Produktová Vizualizácia">Produktová Vizualizácia</h3>
+                        <p class="project-description" data-en="Photorealistic 3D product renders for marketing and e-commerce"
+                           data-sk="Fotorealistické 3D rendery produktov pre marketing a e-commerce">
+                            Fotorealistické 3D rendery produktov pre marketing a e-commerce
+                        </p>
+                        <div class="project-tags">
+                            <span>Blender</span>
+                            <span>Cycles</span>
+                            <span>Product Design</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            <span data-en="View details" data-sk="Zobraziť detaily">Zobraziť detaily</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3 class="project-title" data-en="Architectural Render" data-sk="Architektonický Render">Architektonický Render</h3>
+                        <p class="project-description" data-en="Detailed architectural visualization for interior and exterior spaces"
+                           data-sk="Detailná architektonická vizualizácia pre interiérové a exteriérové priestory">
+                            Detailná architektonická vizualizácia pre interiérové a exteriérové priestory
+                        </p>
+                        <div class="project-tags">
+                            <span>Architecture</span>
+                            <span>Interior Design</span>
+                            <span>Lighting</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            <span data-en="View details" data-sk="Zobraziť detaily">Zobraziť detaily</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3 class="project-title" data-en="Character Design" data-sk="Dizajn Postavy">Dizajn Postavy</h3>
+                        <p class="project-description" data-en="Stylized 3D character models for games and animation"
+                           data-sk="Štylizované 3D modely postáv pre hry a animácie">
+                            Štylizované 3D modely postáv pre hry a animácie
+                        </p>
+                        <div class="project-tags">
+                            <span>Character</span>
+                            <span>Rigging</span>
+                            <span>Texturing</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            <span data-en="View details" data-sk="Zobraziť detaily">Zobraziť detaily</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card" data-aos="fade-up">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3 class="project-title" data-en="Environment Design" data-sk="Dizajn Prostredia">Dizajn Prostredia</h3>
+                        <p class="project-description" data-en="Immersive 3D environments and scene composition"
+                           data-sk="Imerzívne 3D prostredia a kompozícia scén">
+                            Imerzívne 3D prostredia a kompozícia scén
+                        </p>
+                        <div class="project-tags">
+                            <span>Environment</span>
+                            <span>Landscape</span>
+                            <span>World Building</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            <span data-en="View details" data-sk="Zobraziť detaily">Zobraziť detaily</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3 class="project-title" data-en="Motion Graphics 3D" data-sk="3D Motion Graphics">3D Motion Graphics</h3>
+                        <p class="project-description" data-en="Dynamic 3D animations and motion design sequences"
+                           data-sk="Dynamické 3D animácie a sekvecie motion dizajnu">
+                            Dynamické 3D animácie a sekvecie motion dizajnu
+                        </p>
+                        <div class="project-tags">
+                            <span>Animation</span>
+                            <span>Motion Design</span>
+                            <span>Compositing</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            <span data-en="View details" data-sk="Zobraziť detaily">Zobraziť detaily</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3 class="project-title" data-en="Vehicle Modeling" data-sk="Modelovanie Vozidiel">Modelovanie Vozidiel</h3>
+                        <p class="project-description" data-en="Detailed vehicle models with realistic materials and lighting"
+                           data-sk="Detailné modely vozidiel s realistickými materiálmi a osvetlením">
+                            Detailné modely vozidiel s realistickými materiálmi a osvetlením
+                        </p>
+                        <div class="project-tags">
+                            <span>Hard Surface</span>
+                            <span>PBR Materials</span>
+                            <span>Automotive</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            <span data-en="View details" data-sk="Zobraziť detaily">Zobraziť detaily</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card" data-aos="fade-up">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3 class="project-title" data-en="Abstract Art" data-sk="Abstraktné Umenie">Abstraktné Umenie</h3>
+                        <p class="project-description" data-en="Creative abstract 3D compositions and experimental designs"
+                           data-sk="Kreatívne abstraktné 3D kompozície a experimentálne dizajny">
+                            Kreatívne abstraktné 3D kompozície a experimentálne dizajny
+                        </p>
+                        <div class="project-tags">
+                            <span>Abstract</span>
+                            <span>Experimental</span>
+                            <span>Procedural</span>
+                        </div>
+                        <a href="#" class="project-link">
+                            <span data-en="View details" data-sk="Zobraziť detaily">Zobraziť detaily</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img class="logo-img" src="assets/images/logo-svg-black.svg" alt="Logo">
+                </div>
+                <p data-en="© 2024 Samuel Michalik. All rights reserved." data-sk="© 2024 Samuel Michalik. Všetky práva vyhradené.">
+                    © 2024 Samuel Michalik. Všetky práva vyhradené.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
