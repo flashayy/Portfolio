@@ -10,7 +10,7 @@ let outlineY = 0;
 document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    
+
     if (cursorDot) {
         cursorDot.style.left = `${e.clientX}px`;
         cursorDot.style.top = `${e.clientY}px`;
@@ -20,12 +20,12 @@ document.addEventListener('mousemove', (e) => {
 function animateOutline() {
     outlineX += (mouseX - outlineX) * 0.15;
     outlineY += (mouseY - outlineY) * 0.15;
-    
+
     if (cursorOutline) {
         cursorOutline.style.left = `${outlineX}px`;
         cursorOutline.style.top = `${outlineY}px`;
     }
-    
+
     requestAnimationFrame(animateOutline);
 }
 
@@ -46,7 +46,7 @@ interactiveElements.forEach(el => {
             cursorDot.style.transform = 'translate(-50%, -50%) scale(1.5)';
         }
     });
-    
+
     el.addEventListener('mouseleave', () => {
         if (cursorOutline) {
             cursorOutline.style.width = '30px';
@@ -101,7 +101,7 @@ if (themeToggle) {
     themeToggle.addEventListener('click', () => {
         const currentTheme = htmlElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        
+
         htmlElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
     });
@@ -117,10 +117,10 @@ let currentLang = localStorage.getItem('language') || 'sk';
 // Function to update all translatable elements
 function updateLanguage(lang) {
     const elements = document.querySelectorAll('[data-en][data-sk]');
-    
+
     elements.forEach(element => {
         const text = lang === 'en' ? element.getAttribute('data-en') : element.getAttribute('data-sk');
-        
+
         // Update text content or value based on element type
         if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
             element.placeholder = text;
@@ -128,12 +128,12 @@ function updateLanguage(lang) {
             element.textContent = text;
         }
     });
-    
+
     // Update language button text
     if (langText) {
         langText.textContent = lang.toUpperCase();
     }
-    
+
     // Update HTML lang attribute
     document.documentElement.setAttribute('lang', lang);
 }
@@ -151,9 +151,9 @@ if (langToggle) {
 
 // ===== SMOOTH SCROLLING =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
-        
+
         // Skip empty hash
         if (href === '#' || href === '#home') {
             e.preventDefault();
@@ -163,19 +163,19 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             });
             return;
         }
-        
+
         const target = document.querySelector(href);
-        
+
         if (target) {
             e.preventDefault();
             const navHeight = document.querySelector('.nav').offsetHeight;
             const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
-            
+
             window.scrollTo({
                 top: targetPosition,
                 behavior: 'smooth'
             });
-            
+
             // Close mobile menu if open
             if (navMenu && navMenu.classList.contains('active')) {
                 navMenu.classList.remove('active');
@@ -194,7 +194,7 @@ let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
-    
+
     if (currentScroll > 100) {
         nav.style.padding = '1rem 0';
         nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.05)';
@@ -202,7 +202,7 @@ window.addEventListener('scroll', () => {
         nav.style.padding = '2rem 0';
         nav.style.boxShadow = 'none';
     }
-    
+
     lastScroll = currentScroll;
 });
 
@@ -237,7 +237,7 @@ const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         // Get form data
         const formData = {
             name: document.getElementById('name').value,
@@ -245,29 +245,29 @@ if (contactForm) {
             subject: document.getElementById('subject').value,
             message: document.getElementById('message').value
         };
-        
+
         // Show success message
         const submitButton = contactForm.querySelector('button[type="submit"]');
         const originalText = submitButton.innerHTML;
-        
-        const successMessage = currentLang === 'en' 
-            ? '<span>Message sent! ✓</span>' 
+
+        const successMessage = currentLang === 'en'
+            ? '<span>Message sent! ✓</span>'
             : '<span>Správa odoslaná! ✓</span>';
-        
+
         submitButton.innerHTML = successMessage;
         submitButton.style.background = '#22C55E';
         submitButton.style.borderColor = '#22C55E';
-        
+
         // Reset form
         contactForm.reset();
-        
+
         // Reset button after 3 seconds
         setTimeout(() => {
             submitButton.innerHTML = originalText;
             submitButton.style.background = '';
             submitButton.style.borderColor = '';
         }, 3000);
-        
+
         // Here you would normally send the data to a server
         console.log('Form submitted:', formData);
     });
@@ -281,7 +281,7 @@ if (hero && heroContent) {
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
         const parallaxSpeed = 0.5;
-        
+
         if (scrolled < window.innerHeight) {
             heroContent.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
             heroContent.style.opacity = 1 - (scrolled / window.innerHeight);
@@ -294,12 +294,12 @@ const workItems = document.querySelectorAll('.work-item');
 
 workItems.forEach(item => {
     const workImage = item.querySelector('.work-image');
-    
+
     if (workImage) {
         item.addEventListener('mouseenter', () => {
             workImage.style.transform = 'scale(1.05)';
         });
-        
+
         item.addEventListener('mouseleave', () => {
             workImage.style.transform = 'scale(1)';
         });
@@ -317,16 +317,16 @@ const navLinks = document.querySelectorAll('.nav-menu a');
 
 window.addEventListener('scroll', () => {
     let current = '';
-    
+
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
-        
+
         if (window.pageYOffset >= sectionTop - 200) {
             current = section.getAttribute('id');
         }
     });
-    
+
     navLinks.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href') === `#${current}`) {
@@ -379,15 +379,57 @@ window.addEventListener('scroll', debouncedScroll);
 
 // ===== ENHANCED BUTTON HOVER EFFECTS =====
 document.querySelectorAll('.btn').forEach(btn => {
-    btn.addEventListener('mouseenter', function() {
+    btn.addEventListener('mouseenter', function () {
         this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
     });
 });
 
 // ===== SERVICE ITEMS ANIMATION =====
 document.querySelectorAll('.service-item').forEach(item => {
-    item.addEventListener('mouseenter', function() {
+    item.addEventListener('mouseenter', function () {
         this.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+    });
+});
+
+// ===== SCROLL TO TOP BUTTON =====
+const scrollTopBtn = document.createElement('button');
+scrollTopBtn.innerHTML = '↑';
+scrollTopBtn.style.cssText = `
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: black;
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+`;
+
+document.body.appendChild(scrollTopBtn);
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+        scrollTopBtn.style.opacity = '1';
+        scrollTopBtn.style.visibility = 'visible';
+    } else {
+        scrollTopBtn.style.opacity = '0';
+        scrollTopBtn.style.visibility = 'hidden';
+    }
+});
+
+// 🔥 Scroll hore po kliknutí
+scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
     });
 });
 
