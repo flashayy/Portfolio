@@ -17,6 +17,7 @@ document.addEventListener('mousemove', (e) => {
     }
 });
 
+// Animate outline
 function animateOutline() {
     outlineX += (mouseX - outlineX) * 0.15;
     outlineY += (mouseY - outlineY) * 0.15;
@@ -26,6 +27,27 @@ function animateOutline() {
         cursorOutline.style.top = `${outlineY}px`;
     }
 
+    // 🔥 Procedural texture update for cursor
+    if (cursorDot) {
+        const scale = 1; // custom input
+        const t = Date.now() * 0.002; // Complexity
+        const s = 10; // SquareCount
+        const hStretch = 1;
+        const vStretch = 1;
+
+        // Vypočítame offset pre efekt textúry
+        const rx = mouseX / window.innerWidth;
+        const ry = mouseY / window.innerHeight;
+        const v = [(rx * hStretch * (s / window.innerWidth)) / scale,
+                   (ry * vStretch * (s / window.innerHeight)) / scale];
+
+        // Jednoduchý noise efekt pre demo (môžeš nahradiť vlastnou funkcionalitou)
+        const noise = Math.sin(v[0] * 10 + t) * Math.cos(v[1] * 10 + t);
+
+        // Aplikujeme efekt na cursorDot
+        cursorDot.style.transform = `translate(-50%, -50%) scale(${1 + noise * 0.2})`;
+    }
+
     requestAnimationFrame(animateOutline);
 }
 
@@ -33,7 +55,7 @@ if (cursorOutline) {
     animateOutline();
 }
 
-// Cursor hover effect on interactive elements
+// Cursor hover effect
 const interactiveElements = document.querySelectorAll('a, button, .work-image, input, textarea');
 
 interactiveElements.forEach(el => {
@@ -57,6 +79,7 @@ interactiveElements.forEach(el => {
         }
     });
 });
+
 
 // ===== MOBILE MENU TOGGLE =====
 const mobileToggle = document.getElementById('mobileToggle');

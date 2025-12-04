@@ -101,6 +101,26 @@ body {
     border-color: #FAFAFA;
 }
 
+/* ===== HIDE DEFAULT CURSOR ON DESKTOP ===== */
+@media (min-width: 769px) {
+    body {
+        cursor: none;
+    }
+
+    /* Make cursor-outline transparent when scaling on hover */
+    .cursor-outline {
+        transition: width 0.3s, height 0.3s, border-color 0.3s ease, opacity 0.3s;
+    }
+
+    a:hover .cursor-outline,
+    button:hover .cursor-outline,
+    .work-image:hover .cursor-outline,
+    input:hover .cursor-outline,
+    textarea:hover .cursor-outline {
+        opacity: 0; /* outline zmizne pri hovere */
+    }
+}
+
 /* ===== NAVIGATION ===== */
 .nav {
     position: fixed;
