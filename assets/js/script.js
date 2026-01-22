@@ -27,27 +27,6 @@ function animateOutline() {
         cursorOutline.style.top = `${outlineY}px`;
     }
 
-    // 🔥 Procedural texture update for cursor
-    if (cursorDot) {
-        const scale = 1; // custom input
-        const t = Date.now() * 0.002; // Complexity
-        const s = 10; // SquareCount
-        const hStretch = 1;
-        const vStretch = 1;
-
-        // Vypočítame offset pre efekt textúry
-        const rx = mouseX / window.innerWidth;
-        const ry = mouseY / window.innerHeight;
-        const v = [(rx * hStretch * (s / window.innerWidth)) / scale,
-                   (ry * vStretch * (s / window.innerHeight)) / scale];
-
-        // Jednoduchý noise efekt pre demo (môžeš nahradiť vlastnou funkcionalitou)
-        const noise = Math.sin(v[0] * 10 + t) * Math.cos(v[1] * 10 + t);
-
-        // Aplikujeme efekt na cursorDot
-        cursorDot.style.transform = `translate(-50%, -50%) scale(${1 + noise * 0.2})`;
-    }
-
     requestAnimationFrame(animateOutline);
 }
 
@@ -80,7 +59,6 @@ interactiveElements.forEach(el => {
     });
 });
 
-
 // ===== MOBILE MENU TOGGLE =====
 const mobileToggle = document.getElementById('mobileToggle');
 const navMenu = document.getElementById('navMenu');
@@ -93,7 +71,6 @@ if (mobileToggle && navMenu) {
         document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
     });
 
-    // Close mobile menu when clicking on a link
     document.querySelectorAll('.nav-menu a').forEach(link => {
         link.addEventListener('click', () => {
             navMenu.classList.remove('active');
@@ -102,7 +79,6 @@ if (mobileToggle && navMenu) {
         });
     });
 
-    // Close menu when clicking outside
     document.addEventListener('click', (e) => {
         if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target) && navMenu.classList.contains('active')) {
             navMenu.classList.remove('active');
@@ -116,7 +92,6 @@ if (mobileToggle && navMenu) {
 const themeToggle = document.getElementById('themeToggle');
 const htmlElement = document.documentElement;
 
-// Check for saved theme preference or default to 'light' mode
 const currentTheme = localStorage.getItem('theme') || 'light';
 htmlElement.setAttribute('data-theme', currentTheme);
 
@@ -124,7 +99,6 @@ if (themeToggle) {
     themeToggle.addEventListener('click', () => {
         const currentTheme = htmlElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-
         htmlElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
     });
@@ -134,17 +108,14 @@ if (themeToggle) {
 const langToggle = document.getElementById('langToggle');
 const langText = document.querySelector('.lang-text');
 
-// Check for saved language preference or default to 'sk'
 let currentLang = localStorage.getItem('language') || 'sk';
 
-// Function to update all translatable elements
 function updateLanguage(lang) {
     const elements = document.querySelectorAll('[data-en][data-sk]');
 
     elements.forEach(element => {
         const text = lang === 'en' ? element.getAttribute('data-en') : element.getAttribute('data-sk');
 
-        // Update text content or value based on element type
         if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
             element.placeholder = text;
         } else {
@@ -152,16 +123,13 @@ function updateLanguage(lang) {
         }
     });
 
-    // Update language button text
     if (langText) {
         langText.textContent = lang.toUpperCase();
     }
 
-    // Update HTML lang attribute
     document.documentElement.setAttribute('lang', lang);
 }
 
-// Initialize language
 updateLanguage(currentLang);
 
 if (langToggle) {
@@ -177,7 +145,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
 
-        // Skip empty hash
         if (href === '#' || href === '#home') {
             e.preventDefault();
             window.scrollTo({
@@ -199,7 +166,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 behavior: 'smooth'
             });
 
-            // Close mobile menu if open
             if (navMenu && navMenu.classList.contains('active')) {
                 navMenu.classList.remove('active');
                 if (mobileToggle) {
@@ -220,7 +186,7 @@ window.addEventListener('scroll', () => {
 
     if (currentScroll > 100) {
         nav.style.padding = '1rem 0';
-        nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.05)';
+        nav.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
     } else {
         nav.style.padding = '2rem 0';
         nav.style.boxShadow = 'none';
@@ -232,7 +198,7 @@ window.addEventListener('scroll', () => {
 // ===== SCROLL ANIMATIONS =====
 const observerOptions = {
     threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
+    rootMargin: '0px 0px -50px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
@@ -243,12 +209,10 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe all elements with data-aos attribute
 document.querySelectorAll('[data-aos]').forEach(el => {
     observer.observe(el);
 });
 
-// Add staggered animation delays
 document.querySelectorAll('[data-aos-delay]').forEach(el => {
     const delay = el.getAttribute('data-aos-delay');
     el.style.transitionDelay = `${delay}ms`;
@@ -261,7 +225,6 @@ if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        // Get form data
         const formData = {
             name: document.getElementById('name').value,
             email: document.getElementById('email').value,
@@ -269,29 +232,27 @@ if (contactForm) {
             message: document.getElementById('message').value
         };
 
-        // Show success message
         const submitButton = contactForm.querySelector('button[type="submit"]');
         const originalText = submitButton.innerHTML;
 
         const successMessage = currentLang === 'en'
-            ? '<span>Message sent! ✓</span>'
-            : '<span>Správa odoslaná! ✓</span>';
+            ? '<span>Sent ✓</span>'
+            : '<span>Odoslané ✓</span>';
 
         submitButton.innerHTML = successMessage;
-        submitButton.style.background = '#22C55E';
-        submitButton.style.borderColor = '#22C55E';
+        submitButton.disabled = true;
+        submitButton.style.background = 'var(--color-accent)';
+        submitButton.style.opacity = '0.8';
 
-        // Reset form
         contactForm.reset();
 
-        // Reset button after 3 seconds
         setTimeout(() => {
             submitButton.innerHTML = originalText;
+            submitButton.disabled = false;
             submitButton.style.background = '';
-            submitButton.style.borderColor = '';
+            submitButton.style.opacity = '';
         }, 3000);
 
-        // Here you would normally send the data to a server
         console.log('Form submitted:', formData);
     });
 }
@@ -303,11 +264,11 @@ const heroContent = document.querySelector('.hero-content');
 if (hero && heroContent) {
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
-        const parallaxSpeed = 0.5;
+        const parallaxSpeed = 0.15;
 
         if (scrolled < window.innerHeight) {
             heroContent.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
-            heroContent.style.opacity = 1 - (scrolled / window.innerHeight);
+            heroContent.style.opacity = Math.max(0.5, 1 - (scrolled / window.innerHeight * 0.7));
         }
     });
 }
@@ -319,19 +280,16 @@ workItems.forEach(item => {
     const workImage = item.querySelector('.work-image');
 
     if (workImage) {
+        workImage.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        
         item.addEventListener('mouseenter', () => {
-            workImage.style.transform = 'scale(1.05)';
+            workImage.style.transform = 'scale(1.03)';
         });
 
         item.addEventListener('mouseleave', () => {
             workImage.style.transform = 'scale(1)';
         });
     }
-});
-
-// ===== ADD TRANSITION TO WORK IMAGES =====
-document.querySelectorAll('.work-image').forEach(img => {
-    img.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
 });
 
 // ===== ACTIVE NAV LINK ON SCROLL =====
@@ -362,14 +320,13 @@ window.addEventListener('scroll', () => {
 window.addEventListener('load', () => {
     document.body.style.opacity = '0';
     setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
+        document.body.style.transition = 'opacity 0.6s ease';
         document.body.style.opacity = '1';
-    }, 100);
+    }, 50);
 });
 
 // ===== KEYBOARD NAVIGATION =====
 document.addEventListener('keydown', (e) => {
-    // ESC key closes mobile menu
     if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
         navMenu.classList.remove('active');
         if (mobileToggle) {
@@ -379,44 +336,10 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// ===== PERFORMANCE OPTIMIZATION =====
-// Debounce function for scroll events
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Apply debounce to scroll-heavy functions
-const debouncedScroll = debounce(() => {
-    // Your scroll logic here if needed
-}, 10);
-
-window.addEventListener('scroll', debouncedScroll);
-
-// ===== ENHANCED BUTTON HOVER EFFECTS =====
-document.querySelectorAll('.btn').forEach(btn => {
-    btn.addEventListener('mouseenter', function () {
-        this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-    });
-});
-
-// ===== SERVICE ITEMS ANIMATION =====
-document.querySelectorAll('.service-item').forEach(item => {
-    item.addEventListener('mouseenter', function () {
-        this.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-    });
-});
-
 // ===== SCROLL TO TOP BUTTON =====
 const scrollTopBtn = document.createElement('button');
 scrollTopBtn.innerHTML = '↑';
+scrollTopBtn.setAttribute('aria-label', 'Scroll to top');
 scrollTopBtn.style.cssText = `
     position: fixed;
     bottom: 30px;
@@ -424,22 +347,22 @@ scrollTopBtn.style.cssText = `
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: black;
-    color: white;
+    background: var(--color-accent);
+    color: var(--color-bg);
     border: none;
-    font-size: 24px;
+    font-size: 20px;
     cursor: pointer;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 999;
 `;
 
 document.body.appendChild(scrollTopBtn);
 
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
+    if (window.scrollY > 500) {
         scrollTopBtn.style.opacity = '1';
         scrollTopBtn.style.visibility = 'visible';
     } else {
@@ -448,7 +371,6 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// 🔥 Scroll hore po kliknutí
 scrollTopBtn.addEventListener('click', () => {
     window.scrollTo({
         top: 0,
@@ -456,7 +378,10 @@ scrollTopBtn.addEventListener('click', () => {
     });
 });
 
-// ===== CONSOLE MESSAGE =====
-console.log('%c👋 Ahoj!', 'font-size: 20px; font-weight: bold;');
-console.log('%cPozeráš sa na kód? Páči sa mi tvoj štýl!', 'font-size: 14px; color: #667eea;');
-console.log('%cNeváhaj ma kontaktovať: samuel@example.com', 'font-size: 12px; color: #737373;');
+scrollTopBtn.addEventListener('mouseenter', () => {
+    scrollTopBtn.style.transform = 'translateY(-3px)';
+});
+
+scrollTopBtn.addEventListener('mouseleave', () => {
+    scrollTopBtn.style.transform = 'translateY(0)';
+});
