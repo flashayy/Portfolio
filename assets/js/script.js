@@ -218,44 +218,152 @@ document.querySelectorAll('[data-aos-delay]').forEach(el => {
     el.style.transitionDelay = `${delay}ms`;
 });
 
-// ===== FORM SUBMISSION =====
+// ===== EMAILJS FORM SUBMISSION =====
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            subject: document.getElementById('subject').value,
-            message: document.getElementById('message').value
-        };
-
         const submitButton = contactForm.querySelector('button[type="submit"]');
         const originalText = submitButton.innerHTML;
 
-        const successMessage = currentLang === 'en'
-            ? '<span>Sent ✓</span>'
-            : '<span>Odoslané ✓</span>';
+        // Zmena textu tlačidla počas odosielania
+        const sendingMessage = currentLang === 'en'
+            ? '<span>Sending...</span>'
+            : '<span>Odosielam...</span>';
 
-        submitButton.innerHTML = successMessage;
+        submitButton.innerHTML = sendingMessage;
         submitButton.disabled = true;
-        submitButton.style.background = 'var(--color-accent)';
-        submitButton.style.opacity = '0.8';
+        submitButton.style.opacity = '0.7';
 
-        contactForm.reset();
+        emailjs.sendForm('service_8rzno8w', 'template_uujii2h', contactForm)
+            .then(() => {
+                // Úspešné odoslanie
+                const successMessage = currentLang === 'en'
+                    ? '<span>Sent successfully ✓</span>'
+                    : '<span>Úspešne odoslané ✓</span>';
 
-        setTimeout(() => {
-            submitButton.innerHTML = originalText;
-            submitButton.disabled = false;
-            submitButton.style.background = '';
-            submitButton.style.opacity = '';
-        }, 3000);
+                submitButton.innerHTML = successMessage;
+                submitButton.style.background = '#22C55E';
+                submitButton.style.opacity = '1';
 
-        console.log('Form submitted:', formData);
+                // Reset formulára
+                contactForm.reset();
+
+                // Zobrazenie success notifikácie
+                showNotification(
+                    currentLang === 'en' 
+                        ? 'Message sent successfully!' 
+                        : 'Správa bola úspešne odoslaná!',
+                    'success'
+                );
+
+                // Obnova pôvodného stavu tlačidla po 3 sekundách
+                setTimeout(() => {
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                    submitButton.style.background = '';
+                    submitButton.style.opacity = '';
+                }, 3000);
+            })
+            .catch((error) => {
+                // Chyba pri odosielaní
+                console.error('EmailJS Error:', error);
+
+                const errorMessage = currentLang === 'en'
+                    ? '<span>Failed to send ✗</span>'
+                    : '<span>Nepodarilo sa odoslať ✗</span>';
+
+                submitButton.innerHTML = errorMessage;
+                submitButton.style.background = '#EF4444';
+                submitButton.style.opacity = '1';
+
+                // Zobrazenie error notifikácie
+                showNotification(
+                    currentLang === 'en' 
+                        ? 'Failed to send message. Please try again.' 
+                        : 'Nepodarilo sa odoslať správu. Skúste to prosím znova.',
+                    'error'
+                );
+
+                // Obnova pôvodného stavu tlačidla po 3 sekundách
+                setTimeout(() => {
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                    submitButton.style.background = '';
+                    submitButton.style.opacity = '';
+                }, 3000);
+            });
     });
 }
+
+// ===== NOTIFICATION SYSTEM =====
+function showNotification(message, type = 'success') {
+    // Odstránenie existujúcej notifikácie
+    const existingNotification = document.querySelector('.notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+
+    // Vytvorenie novej notifikácie
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+
+    // Štýly pre notifikáciu
+    notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 30px;
+        padding: 1rem 1.5rem;
+        background: ${type === 'success' ? '#22C55E' : '#EF4444'};
+        color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        z-index: 10000;
+        font-weight: 500;
+        animation: slideIn 0.3s ease;
+        max-width: 300px;
+    `;
+
+    document.body.appendChild(notification);
+
+    // Automatické odstránenie po 5 sekundách
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 5000);
+}
+
+// CSS animácie pre notifikácie
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
 
 // ===== PARALLAX EFFECT ON HERO =====
 const hero = document.querySelector('.hero');
