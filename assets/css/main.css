@@ -45,6 +45,17 @@
     box-sizing: border-box;
 }
 
+/* ===== SELECTION ===== */
+::selection {
+    background: var(--color-accent);
+    color: var(--color-bg);
+}
+
+::-moz-selection {
+    background: var(--color-accent);
+    color: var(--color-bg);
+}
+
 html {
     scroll-behavior: smooth;
 }
