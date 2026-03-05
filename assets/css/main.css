@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap');
+
 /* ===== CSS VARIABLES ===== */
 :root {
     --color-bg: #FAFAFA;
@@ -9,6 +11,7 @@
     --color-hover: #F5F5F5;
     
     --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Syne', sans-serif;
     --font-weight-light: 300;
     --font-weight-regular: 400;
     --font-weight-medium: 500;
@@ -365,6 +368,7 @@ body {
 }
 
 .hero-title {
+    font-family: var(--font-display);
     font-size: clamp(3rem, 10vw, 8rem);
     font-weight: var(--font-weight-extrabold);
     line-height: 0.95;
@@ -505,6 +509,7 @@ body {
 }
 
 .section-title {
+    font-family: var(--font-display);
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: var(--font-weight-extrabold);
     letter-spacing: -0.03em;
@@ -561,6 +566,7 @@ body {
 }
 
 .service-item h3 {
+    font-family: var(--font-display);
     font-size: 1.5rem;
     font-weight: var(--font-weight-bold);
     margin-bottom: var(--space-sm);
@@ -666,6 +672,7 @@ body {
 }
 
 .work-title {
+    font-family: var(--font-display);
     font-size: 2rem;
     font-weight: var(--font-weight-bold);
     margin-bottom: var(--space-sm);
@@ -708,6 +715,7 @@ body {
 }
 
 .about-skills h3 {
+    font-family: var(--font-display);
     font-size: 1.5rem;
     font-weight: var(--font-weight-bold);
     margin-bottom: var(--space-md);
