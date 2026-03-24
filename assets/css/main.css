@@ -5,11 +5,12 @@
 :root {
     --color-bg: #FAFAFA;
     --color-bg-alt: #FFFFFF;
-    --color-text: #0A0A0A;
+    --color-text: #151515;
     --color-text-secondary: #737373;
-    --color-accent: #0A0A0A;
+    --color-accent: #93032E;
     --color-border: #E5E5E5;
     --color-hover: #F5F5F5;
+    --color-accent-hover: #7a0226;
     
     --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-display: 'Syne', sans-serif;
@@ -33,13 +34,14 @@
 }
 
 [data-theme="dark"] {
-    --color-bg: #0A0A0A;
-    --color-bg-alt: #1A1A1A;
+    --color-bg: #151515;
+    --color-bg-alt: #1E1E1E;
     --color-text: #FAFAFA;
     --color-text-secondary: #A0A0A0;
-    --color-accent: #FAFAFA;
+    --color-accent: #93032E;
     --color-border: #2A2A2A;
-    --color-hover: #1F1F1F;
+    --color-hover: #222222;
+    --color-accent-hover: #7a0226;
 }
 
 /* ===== RESET ===== */
@@ -102,14 +104,9 @@ body {
     transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
 }
 
-@media (min-width: 769px) {
-    body {
-        cursor: none;
-    }
-
-    a, button, .work-image, input, textarea {
-        cursor: none;
-    }
+body,
+a, button, .work-image, input, textarea, * {
+    cursor: none !important;
 }
 
 /* ===== NAVIGATION ===== */
@@ -127,7 +124,7 @@ body {
 }
 
 [data-theme="dark"] .nav {
-    background: rgba(10, 10, 10, 0.9);
+    background: rgba(21, 21, 21, 0.9);
 }
 
 .nav-container {
@@ -200,7 +197,7 @@ body {
 .nav-link-cta {
     padding: 0.75rem 1.5rem;
     background: var(--color-accent);
-    color: var(--color-bg) !important;
+    color: #FFFFFF !important;
     border-radius: 50px;
     transition: var(--transition);
 }
@@ -210,8 +207,9 @@ body {
 }
 
 .nav-link-cta:hover {
+    background: var(--color-accent-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(147, 3, 46, 0.3);
 }
 
 .nav-controls {
@@ -417,15 +415,16 @@ body {
 
 .btn-primary {
     background: var(--color-accent);
-    color: var(--color-bg);
+    color: #FFFFFF;
     border: 2px solid var(--color-accent);
 }
 
 .btn-primary:hover {
-    background: transparent;
-    color: var(--color-accent);
+    background: var(--color-accent-hover);
+    color: #FFFFFF;
+    border-color: var(--color-accent-hover);
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 30px rgba(147, 3, 46, 0.3);
 }
 
 .btn-secondary {
@@ -436,7 +435,7 @@ body {
 
 .btn-secondary:hover {
     background: var(--color-accent);
-    color: var(--color-bg);
+    color: #FFFFFF;
     transform: translateY(-2px);
 }
 
@@ -877,6 +876,10 @@ body {
     .cursor-dot,
     .cursor-outline {
         display: none !important;
+    }
+
+    body, *, a, button, input, textarea {
+        cursor: auto !important;
     }
     
     .hero {

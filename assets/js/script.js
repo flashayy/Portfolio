@@ -459,7 +459,7 @@ scrollTopBtn.style.cssText = `
     color: var(--color-bg);
     border: none;
     font-size: 20px;
-    cursor: pointer;
+    cursor: none;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
